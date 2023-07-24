@@ -60,15 +60,15 @@ export default function App({ navigation }) {
   }, []);
   const [isEnabled, setIsEnabled] = useState(false);
   const [imageSource, setImageSource] = useState(
-    require("./assets/unlocker.png")
+    require("./assets/Vector65.png")
   );
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     setImageSource(
       isEnabled
-        ? require("./assets/unlocker.png")
-        : require("./assets/locker.png")
+        ? require("./assets/Vector65.png")
+        : require("./assets/Vector5.png")
     );
   };
 
@@ -92,20 +92,26 @@ export default function App({ navigation }) {
 
       <MapView style={styles.map} region={mapRegion}>
         <Marker coordinate={mapRegion} title="Marker" />
+        <View styles={styles.overlayImageContainer}>
        
-      </MapView>
-      <View styles={styles.overlayImageContainer}>
-      <Switch
+      <TouchableOpacity onPress={() => console.log("Pressed!")}>
+        <Image source={imageSource}  style = {styles.boot}/>
+        <Switch
         style={styles.boot}
-        trackColor={{ false: "#ffffff", true: "#2E3A53" }}
+        trackColor={{ false: "#ffffff", true: "#2F88FF" }}
         onValueChange={toggleSwitch}
         value={isEnabled}
         onPress={() => navigation.navigate("Lock")}
       />
-</View>
-      <TouchableOpacity onPress={() => console.log("Pressed!")}>
-        <Image source={imageSource} />
       </TouchableOpacity>
+      
+</View>
+       
+       
+      </MapView>
+      
+      
+      
       
     </View>
   );
@@ -140,12 +146,14 @@ const styles = StyleSheet.create({
     margin: 0,
     height: 84,
     width: 84,
+    top: 35,
   },
   boot: {
-    position:"absolute",
-    alignItems: "center",
-    bottom: 0,
-    zIndex:1,
+   
+    
+    left:170,
+    top: 550,
+    zIndex:2,
   },
   search: {
     flex: 1,
