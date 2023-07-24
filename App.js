@@ -87,7 +87,8 @@ export default function App({ navigation }) {
       </NavigationContainer>  */}
       <View style={styles.button}>
         <Image source={require("./assets/logo.png")} style={styles.logo} />
-        <Text style={styles.boot}>Boot</Text>
+        <Image source={require("./assets/Add.png")}/>
+        <Text style={styles.text1}>Boot #1</Text>
       </View>
 
       <MapView style={styles.map} region={mapRegion}>
@@ -95,7 +96,7 @@ export default function App({ navigation }) {
         <View styles={styles.overlayImageContainer}>
        
       <TouchableOpacity onPress={() => console.log("Pressed!")}>
-        <Image source={imageSource}  style = {styles.boot}/>
+        <Image source={imageSource}  style={styles.lock} />
         <Switch
         style={styles.boot}
         trackColor={{ false: "#ffffff", true: "#2F88FF" }}
@@ -144,20 +145,36 @@ const styles = StyleSheet.create({
   },
   logo: {
     margin: 0,
-    height: 84,
-    width: 84,
-    top: 35,
+    height: 51,
+    width: 80,
+    top: 70,
+    right: -34,
   },
   boot: {
    
     
-    left:170,
-    top: 550,
-    zIndex:2,
+    left:480,
+    top: 780,
+    zIndex:1,
+    height:200,
+    width:344,
+    transform:[{ scaleX: 3.2 }, { scaleY: 3.2 }],
+    position:"absolute"
+    
   },
   search: {
     flex: 1,
     bottom: 0,
   },
+  text1:{
+    color:"#2F88FF",
+    top: 90,
+    right: -78,
+  },
+  lock:{
+    left:190,
+    top: 580,
+    zIndex:2,
+  }
   
 });
