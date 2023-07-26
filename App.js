@@ -17,12 +17,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Switch } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
-import ModalDropdown from 'react-native-modal-dropdown';
+import ModalDropdown from "react-native-modal-dropdown";
 import colors from "react-native-elements";
-
-
-
+import PinScreen from "./PinScreen";
 export default function App({ navigation }) {
+  const Stack = createNativeStackNavigator();
+
+
   let [mapRegion, setMapRegion] = useState({
     latitude: 34.034411637144196,
     longitude: -118.45671197410529,
@@ -47,7 +48,6 @@ export default function App({ navigation }) {
       enableHighAccuracy: true,
       timeInterval: 1,
     });
-    
 
     setLocation(location);
     setMapRegion({
@@ -67,84 +67,82 @@ export default function App({ navigation }) {
   const [imageSource, setImageSource] = useState(
     require("./assets/Vector65.png")
   );
-
+   
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     setImageSource(
       isEnabled
-        ? require("./assets/Vector5.png")
-        : require("./assets/Vector65.png")
+        ? require("./assets/Vector65.png")
+        : require("./assets/Vector5.png")
     );
+    navigation.navigate("PinScreen ");
   };
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-           
+
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
-         
-  const Stack = createNativeStackNavigator();
+
+  
 
   return (
     <View>
-      {/* <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="pin"
-            component={pinnumber}
-            style={styles.button}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>  */}
-      
+       <NavigationContainer>
+      <Stack.Navigator initialRouteName="PinScreen" headerMode="none">
+        <Stack.Screen name="PinScreen" component={PinScreen} />
+        {/* Add more screens/routes as needed */}
+      </Stack.Navigator>
+    </NavigationContainer>
+
       <MapView style={styles.map} region={mapRegion}>
-      <View style={styles.button}>
-      {/* <Card  > */}
-        <Image source={require("./assets/logo.png")} style={styles.logo} />
-  
-        <Text style={styles.text1}>Boot #1</Text>
-      {/* </Card> */}
-      </View>
+        <View style={styles.button}>
+          {/* <Card  > */}
+          <View>
+            {/* Your other components inside the button */}
+            <TouchableOpacity onPress={toggleDropdown}>
+              <Image source={require("./assets/Add.png")} style={styles.add} />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.text1}>Boot #1</Text>
+          <Image source={require("./assets/logo.png")} style={styles.logo} />
+
+          {/* </Card> */}
+        </View>
         <Marker coordinate={mapRegion} title="Marker" />
         <View styles={styles.overlayImageContainer}>
-       
-      <TouchableOpacity onPress={() => console.log("Pressed!")}>
-        <Image source={imageSource}  style={styles.lock} />
-        <Switch
-        style={styles.boot}
-        trackColor={{ false: "#ffffff", true: "#2F88FF" }}
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-        onPress={() => navigation.navigate("Lock")}
-      />
-      </TouchableOpacity>
-      <View >
-        {/* Your other components inside the button */}
-        <TouchableOpacity onPress={toggleDropdown}>
-        <Image source={require("./assets/Add.png") } style={styles.add} />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity onPress={() => console.log("Pressed!")}>
+            <Image
+              source={imageSource}
+              style={[styles.lock, { left: isEnabled ? 190 : 125 }, {top: isEnabled ? 640:640}]}
+            />
+            <Switch
+              style={styles.boot}
+              trackColor={{ false: "#ffffff", true: "#2F88FF" }}
+              onValueChange={toggleSwitch}
+              onPress={() => {
+                navigation.navigate("Lock");
+                //put a var change here
+                //this code switch the lock
+              }}
+              value={isEnabled}
+            />
+          </TouchableOpacity>
+          
 
-      {isDropdownVisible && (
-        <ModalDropdown
-          options={["Boot 1",] }
-          style = {styles.dropdown2}
-          dropdownStyle={styles.dropdown}
-          dropdownTextStyle={styles.dropdownText}
-          onSelect={(index) => {
-            // Handle the selected option here if needed
-            console.log("Selected index:", index);
-          }}
-        />
-      )}
-      
-</View>
-       
-       
+          {isDropdownVisible && (
+            <ModalDropdown
+              options={["Boot 1"]}
+              style={styles.dropdown2}
+              dropdownStyle={styles.dropdown}
+              dropdownTextStyle={styles.dropdownText}
+              onSelect={(index) => {
+                // Handle the selected option here if needed
+                console.log("Selected index:", index);
+              }}
+            />
+          )}
+        </View>
       </MapView>
-      
-      
-      
-      
     </View>
   );
 }
@@ -158,14 +156,15 @@ const styles = StyleSheet.create({
     color: "White",
   },
   button: {
-    borderRadius:60,
+    borderRadius: 60,
     width: 365,
     flexshrink: 0,
-    height: 75,
+    height: 85,
     backgroundColor: "#FFFFFF",
     flexDirection: "row", // Align items in a horizontal line
-    top:69,
-    left:10
+    top: 69,
+    left: 10,
+    alignItems:"center",
   },
   text: {
     color: "white",
@@ -175,69 +174,61 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     margin: 0,
-    zIndex:0,
+    zIndex: 0,
   },
   logo: {
-    margin: 0,
+    margin: 28,
     height: 65,
     width: 80,
-    top: 10 ,
-    right: -34,
-    zIndex:2
+    top:3,
+    // top: -1,
+    // right: -280,
+    zIndex: 2,
   },
   boot: {
-   
-    
-    left:480,
-    top: 940,
-    zIndex:1,
-    height:200,
-    width:344,
-    transform:[{ scaleX: 3.2 }, { scaleY: 3.2 }],
-    position:"absolute"
-    
+    left: 480,
+    top: 840,
+    zIndex: 1,
+    height: 200,
+    width: 344,
+    transform: [{ scaleX: 3.2 }, { scaleY: 3.2 }],
+    position: "absolute",
   },
   search: {
     flex: 1,
     bottom: 0,
   },
-  text1:{
-    color:"#2F88FF",
-    top: 20,
-    right: -25,
-    fontSize:30,
-    zIndex:2,
-  
+  text1: {
+    color: "#2F88FF",
+    // top: 90,
+    // right: -49,
+    fontSize: 30,
+    zIndex: 2,
+
   },
-  lock:{
-    left:192,
+  lock: {
     top: 745,
-    zIndex:2,
+    zIndex: 2,
   },
-  add:{
-        left:260,
-        top:87,
-        zIndex:2,
-
-
+  add: {
+    left: 0,
+    top: 90,
+    zIndex: 2,
+   marginHorizontal:50,
   },
   dropdown: {
-    top:1,
-    right:-2,
-    width:75,
-
-    
-    
+    top: 1,
+    right: -2,
+    width: 75,
+    color: "#2F88FF",
   },
-  dropdown2:{
- right:-150,
- color:"#FFFFFF",
-
+  dropdown2: {
+    top:34,
+    right: -24,
+    color: "#FFFFFF",
   },
   dropdownText: {
-    
-    
-    
+    color: "#2F88FF",
+    fontSize:23,
   },
-  
 });
