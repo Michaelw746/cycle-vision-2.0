@@ -17,6 +17,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Switch } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
+import ModalDropdown from 'react-native-modal-dropdown';
+import colors from "react-native-elements";
+
+
 
 export default function App({ navigation }) {
   let [mapRegion, setMapRegion] = useState({
@@ -43,6 +47,7 @@ export default function App({ navigation }) {
       enableHighAccuracy: true,
       timeInterval: 1,
     });
+    
 
     setLocation(location);
     setMapRegion({
@@ -67,11 +72,16 @@ export default function App({ navigation }) {
     setIsEnabled((previousState) => !previousState);
     setImageSource(
       isEnabled
-        ? require("./assets/Vector65.png")
-        : require("./assets/Vector5.png")
+        ? require("./assets/Vector5.png")
+        : require("./assets/Vector65.png")
     );
   };
-
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+           
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+         
   const Stack = createNativeStackNavigator();
 
   return (
@@ -85,13 +95,15 @@ export default function App({ navigation }) {
           />
         </Stack.Navigator>
       </NavigationContainer>  */}
-      <View style={styles.button}>
-        <Image source={require("./assets/logo.png")} style={styles.logo} />
-        <Image source={require("./assets/Add.png")}/>
-        <Text style={styles.text1}>Boot #1</Text>
-      </View>
-
+      
       <MapView style={styles.map} region={mapRegion}>
+      <View style={styles.button}>
+      {/* <Card  > */}
+        <Image source={require("./assets/logo.png")} style={styles.logo} />
+  
+        <Text style={styles.text1}>Boot #1</Text>
+      {/* </Card> */}
+      </View>
         <Marker coordinate={mapRegion} title="Marker" />
         <View styles={styles.overlayImageContainer}>
        
@@ -105,6 +117,25 @@ export default function App({ navigation }) {
         onPress={() => navigation.navigate("Lock")}
       />
       </TouchableOpacity>
+      <View >
+        {/* Your other components inside the button */}
+        <TouchableOpacity onPress={toggleDropdown}>
+        <Image source={require("./assets/Add.png") } style={styles.add} />
+        </TouchableOpacity>
+      </View>
+
+      {isDropdownVisible && (
+        <ModalDropdown
+          options={["Boot 1",] }
+          style = {styles.dropdown2}
+          dropdownStyle={styles.dropdown}
+          dropdownTextStyle={styles.dropdownText}
+          onSelect={(index) => {
+            // Handle the selected option here if needed
+            console.log("Selected index:", index);
+          }}
+        />
+      )}
       
 </View>
        
@@ -127,11 +158,14 @@ const styles = StyleSheet.create({
     color: "White",
   },
   button: {
-    borderRadius: 0,
-    height: 150,
+    borderRadius:60,
+    width: 365,
+    flexshrink: 0,
+    height: 75,
     backgroundColor: "#FFFFFF",
     flexDirection: "row", // Align items in a horizontal line
-    margin: 0,
+    top:69,
+    left:10
   },
   text: {
     color: "white",
@@ -145,16 +179,17 @@ const styles = StyleSheet.create({
   },
   logo: {
     margin: 0,
-    height: 51,
+    height: 65,
     width: 80,
-    top: 70,
+    top: 10 ,
     right: -34,
+    zIndex:2
   },
   boot: {
    
     
     left:480,
-    top: 780,
+    top: 940,
     zIndex:1,
     height:200,
     width:344,
@@ -168,13 +203,41 @@ const styles = StyleSheet.create({
   },
   text1:{
     color:"#2F88FF",
-    top: 90,
-    right: -78,
+    top: 20,
+    right: -25,
+    fontSize:30,
+    zIndex:2,
+  
   },
   lock:{
-    left:190,
-    top: 580,
+    left:192,
+    top: 745,
     zIndex:2,
-  }
+  },
+  add:{
+        left:260,
+        top:87,
+        zIndex:2,
+
+
+  },
+  dropdown: {
+    top:1,
+    right:-2,
+    width:75,
+
+    
+    
+  },
+  dropdown2:{
+ right:-150,
+ color:"#FFFFFF",
+
+  },
+  dropdownText: {
+    
+    
+    
+  },
   
 });
