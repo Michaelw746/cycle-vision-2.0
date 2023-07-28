@@ -18,8 +18,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Switch } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
-import colors from "react-native-elements";
-import PinScreen from "./PinScreen";
+
+import { Circle } from "./components/Circle";
+import{setErrorMsg} from "react-native"
+
 export default function App({ navigation }) {
   const Stack = createNativeStackNavigator();
 
@@ -75,7 +77,6 @@ export default function App({ navigation }) {
         ? require("./assets/Vector65.png")
         : require("./assets/Vector5.png")
     );
-    navigation.navigate("PinScreen ");
   };
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
@@ -86,16 +87,14 @@ export default function App({ navigation }) {
   
 
   return (
-    <View>
-       <NavigationContainer>
-      <Stack.Navigator initialRouteName="PinScreen" headerMode="none">
-        <Stack.Screen name="PinScreen" component={PinScreen} />
-        {/* Add more screens/routes as needed */}
-      </Stack.Navigator>
-    </NavigationContainer>
+   
+     <View>
+      
+     
 
       <MapView style={styles.map} region={mapRegion}>
         <View style={styles.button}>
+       
           {/* <Card  > */}
           <View>
             {/* Your other components inside the button */}
@@ -104,23 +103,26 @@ export default function App({ navigation }) {
             </TouchableOpacity>
           </View>
           <Text style={styles.text1}>Boot #1</Text>
-          <Image source={require("./assets/logo.png")} style={styles.logo} />
+          <Image source={require("./assets/logo.png")} style={styles.logo}   />
 
           {/* </Card> */}
         </View>
         <Marker coordinate={mapRegion} title="Marker" />
-        <View styles={styles.overlayImageContainer}>
-          <TouchableOpacity onPress={() => console.log("Pressed!")}>
+        <View styles={styles.circle}>
+          <TouchableOpacity >
             <Image
               source={imageSource}
-              style={[styles.lock, { left: isEnabled ? 190 : 125 }, {top: isEnabled ? 640:640}]}
-            />
+              style={[styles.lock, { left: isEnabled ? 190 : 125 }, {top: isEnabled ? 620:620}]}
+             />
+                
+
+                <Circle/>
+
             <Switch
               style={styles.boot}
               trackColor={{ false: "#ffffff", true: "#2F88FF" }}
               onValueChange={toggleSwitch}
               onPress={() => {
-                navigation.navigate("Lock");
                 //put a var change here
                 //this code switch the lock
               }}
@@ -187,12 +189,13 @@ const styles = StyleSheet.create({
   },
   boot: {
     left: 480,
-    top: 840,
+    top: 820,
     zIndex: 1,
     height: 200,
     width: 344,
     transform: [{ scaleX: 3.2 }, { scaleY: 3.2 }],
     position: "absolute",
+   
   },
   search: {
     flex: 1,
@@ -207,7 +210,7 @@ const styles = StyleSheet.create({
 
   },
   lock: {
-    top: 745,
+    top: 705,
     zIndex: 2,
   },
   add: {
@@ -230,5 +233,14 @@ const styles = StyleSheet.create({
   dropdownText: {
     color: "#2F88FF",
     fontSize:23,
+  },
+  circle: {
+    width: 34,
+    height: 34,
+    borderRadius: 34/2,
+    backgroundColor: "#2F88FF",
+    borderColor:'#e9c46a',
+  
+    zIndex: 2,
   },
 });
