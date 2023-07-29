@@ -12,19 +12,16 @@ import React, { useState, useEffect } from "react";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { Marker } from "react-native-maps";
-import { Card, SearchBar } from "react-native-elements";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
 import { Switch } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
-
 import { Circle } from "./components/Circle";
-import{setErrorMsg} from "react-native"
+import { setErrorMsg } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+// import PinStack from "./navigation/PinStack.js";
+import PinStack from './PinStack'
 
-export default function App({ navigation }) {
-  const Stack = createNativeStackNavigator();
-
+export default function App({navigation}) {
 
   let [mapRegion, setMapRegion] = useState({
     latitude: 34.034411637144196,
@@ -69,7 +66,7 @@ export default function App({ navigation }) {
   const [imageSource, setImageSource] = useState(
     require("./assets/Vector65.png")
   );
-   
+
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     setImageSource(
@@ -84,17 +81,13 @@ export default function App({ navigation }) {
     setDropdownVisible(!isDropdownVisible);
   };
 
-  
-
   return (
-   
-     <View>
-      
-     
-
+    <View>
+      <NavigationContainer>
+        <PinStack />
+      </NavigationContainer>
       <MapView style={styles.map} region={mapRegion}>
         <View style={styles.button}>
-       
           {/* <Card  > */}
           <View>
             {/* Your other components inside the button */}
@@ -103,20 +96,28 @@ export default function App({ navigation }) {
             </TouchableOpacity>
           </View>
           <Text style={styles.text1}>Boot #1</Text>
-          <Image source={require("./assets/logo.png")} style={styles.logo}   />
+
+          <Image source={require("./assets/logo.png")} style={styles.logo} />
 
           {/* </Card> */}
         </View>
         <Marker coordinate={mapRegion} title="Marker" />
         <View styles={styles.circle}>
-          <TouchableOpacity >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("pin");
+            }}
+          >
             <Image
               source={imageSource}
-              style={[styles.lock, { left: isEnabled ? 190 : 125 }, {top: isEnabled ? 620:620}]}
-             />
-                
+              style={[
+                styles.lock,
+                { left: isEnabled ? 190 : 125 },
+                { top: isEnabled ? 620 : 620 },
+              ]}
+            />
 
-                <Circle/>
+            <Circle />
 
             <Switch
               style={styles.boot}
@@ -129,7 +130,6 @@ export default function App({ navigation }) {
               value={isEnabled}
             />
           </TouchableOpacity>
-          
 
           {isDropdownVisible && (
             <ModalDropdown
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Align items in a horizontal line
     top: 69,
     left: 10,
-    alignItems:"center",
+    alignItems: "center",
   },
   text: {
     color: "white",
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     margin: 28,
     height: 65,
     width: 80,
-    top:3,
+    top: 3,
     // top: -1,
     // right: -280,
     zIndex: 2,
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
     width: 344,
     transform: [{ scaleX: 3.2 }, { scaleY: 3.2 }],
     position: "absolute",
-   
   },
   search: {
     flex: 1,
@@ -207,7 +206,6 @@ const styles = StyleSheet.create({
     // right: -49,
     fontSize: 30,
     zIndex: 2,
-
   },
   lock: {
     top: 705,
@@ -217,7 +215,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 90,
     zIndex: 2,
-   marginHorizontal:50,
+    marginHorizontal: 50,
   },
   dropdown: {
     top: 1,
@@ -226,21 +224,21 @@ const styles = StyleSheet.create({
     color: "#2F88FF",
   },
   dropdown2: {
-    top:34,
+    top: 34,
     right: -24,
     color: "#FFFFFF",
   },
   dropdownText: {
     color: "#2F88FF",
-    fontSize:23,
+    fontSize: 23,
   },
   circle: {
     width: 34,
     height: 34,
-    borderRadius: 34/2,
+    borderRadius: 34 / 2,
     backgroundColor: "#2F88FF",
-    borderColor:'#e9c46a',
-  
+    borderColor: "#e9c46a",
+
     zIndex: 2,
   },
 });
