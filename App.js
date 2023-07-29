@@ -17,9 +17,7 @@ import { TouchableOpacity } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { Circle } from "./components/Circle";
 import { setErrorMsg } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-// import PinStack from "./navigation/PinStack.js";
-import PinStack from './PinStack'
+
 
 export default function App({navigation}) {
 
@@ -83,9 +81,7 @@ export default function App({navigation}) {
 
   return (
     <View>
-      <NavigationContainer>
-        <PinStack />
-      </NavigationContainer>
+     
       <MapView style={styles.map} region={mapRegion}>
         <View style={styles.button}>
           {/* <Card  > */}
@@ -103,11 +99,7 @@ export default function App({navigation}) {
         </View>
         <Marker coordinate={mapRegion} title="Marker" />
         <View styles={styles.circle}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("pin");
-            }}
-          >
+          
             <Image
               source={imageSource}
               style={[
@@ -129,7 +121,6 @@ export default function App({navigation}) {
               }}
               value={isEnabled}
             />
-          </TouchableOpacity>
 
           {isDropdownVisible && (
             <ModalDropdown
@@ -142,6 +133,7 @@ export default function App({navigation}) {
                 console.log("Selected index:", index);
               }}
             />
+            
           )}
         </View>
       </MapView>
