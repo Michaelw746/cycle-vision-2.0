@@ -6,21 +6,23 @@ import {
   ReactNativeZoomableView,
   onPress,
   Image,
+  Modal,
+  TextInput
 } from "react-native";
 // this file is using for creating a tracker and to use expo map api for the map
-import React, { useState, useEffect } from "react";
-import MapView from "react-native-maps";
-import * as Location from "expo-location";
-import { Marker } from "react-native-maps";
-import { Switch } from "react-native-elements";
+import React, { useState, useEffect, setSelectedValue, selectedValue, onValueChange } from "react";
 import { TouchableOpacity } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { Circle } from "./components/Circle";
 import { setErrorMsg } from "react-native";
+import MapView from "react-native-maps";
+import * as Location from "expo-location";
+import { Marker } from "react-native-maps";
+import {Picker} from "@react-native-picker/picker"
+import { PinScreenModal } from "./components/PinScreenModal";
 
 
 export default function App({navigation}) {
-
   let [mapRegion, setMapRegion] = useState({
     latitude: 34.034411637144196,
     longitude: -118.45671197410529,
@@ -60,85 +62,81 @@ export default function App({navigation}) {
   useEffect(() => {
     userLocation();
   }, []);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [imageSource, setImageSource] = useState(
-    require("./assets/Vector65.png")
-  );
+  const [selectedValue, setSelectedValue] = useState("Boot #1");
 
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
-    setImageSource(
-      isEnabled
-        ? require("./assets/Vector65.png")
-        : require("./assets/Vector5.png")
-    );
-  };
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isLocked, setIsLocked] = useState(true); // Added state for lock/unlock
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!isDropdownVisible);
+  const toggleLock = () => {
+    setIsLocked(!isLocked);
   };
+  const [isModalVisible, setModalVisible] = useState(false); 
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
 
   return (
     <View>
-     
+      
       <MapView style={styles.map} region={mapRegion}>
-        <View style={styles.button}>
+      
+      <View style={styles.button}>
           {/* <Card  > */}
           <View>
             {/* Your other components inside the button */}
-            <TouchableOpacity onPress={toggleDropdown}>
-              <Image source={require("./assets/Add.png")} style={styles.add} />
-            </TouchableOpacity>
+           
           </View>
-          <Text style={styles.text1}>Boot #1</Text>
+          {/* <Text style={styles.text1}>Boot #1</Text> */}
+          <Picker
+        selectedValue={selectedValue}
+        style={{ height: 50, width: 150, top:-77, right:-180, }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      >
+        <Picker.Item label="Boot #1" value="java" />
+        <Picker.Item label="Boot #2" value="js" />
+      </Picker>
 
-          <Image source={require("./assets/logo.png")} style={styles.logo} />
+          <Image source={require('../cycle-vision-2.0/assets/logo.png')} style={styles.logo} />
+        
 
-          {/* </Card> */}
         </View>
-        <Marker coordinate={mapRegion} title="Marker" />
-        <View styles={styles.circle}>
-          
-            <Image
-              source={imageSource}
-              style={[
-                styles.lock,
-                { left: isEnabled ? 190 : 125 },
-                { top: isEnabled ? 620 : 620 },
-              ]}
-            />
-
-            <Circle />
-
-            <Switch
-              style={styles.boot}
-              trackColor={{ false: "#ffffff", true: "#2F88FF" }}
-              onValueChange={toggleSwitch}
-              onPress={() => {
-                //put a var change here
-                //this code switch the lock
-              }}
-              value={isEnabled}
-            />
-
-          {isDropdownVisible && (
-            <ModalDropdown
-              options={["Boot 1"]}
-              style={styles.dropdown2}
-              dropdownStyle={styles.dropdown}
-              dropdownTextStyle={styles.dropdownText}
-              onSelect={(index) => {
-                // Handle the selected option here if needed
-                console.log("Selected index:", index);
-              }}
-            />
-            
-          )}
+      <Marker coordinate={mapRegion} title="Marker" />  
+      <Circle/>
+      <TouchableOpacity onPress={() => {
+  toggleLock();
+  toggleModal();
+}}
+ >
+          <Image
+            source={
+              isLocked
+                ? require("../cycle-vision-2.0/assets/lock1.png")
+                : require("../cycle-vision-2.0/assets/unlock1.png")
+            }
+            style={styles.lock}
+           
+          />
+        </TouchableOpacity>
+        <Modal visible={isModalVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          {/* Add your pin screen components here */}
+          <Text style={styles.modalText}>Enter Pin:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your pin"
+            // Add onChangeText and value props to manage input state
+          />
+          <Button title="Submit" onPress={toggleModal} />
         </View>
+      </Modal>
+        
+        
       </MapView>
+
+
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -175,8 +173,7 @@ const styles = StyleSheet.create({
     height: 65,
     width: 80,
     top: 3,
-    // top: -1,
-    // right: -280,
+   right: 150,
     zIndex: 2,
   },
   boot: {
@@ -232,5 +229,12 @@ const styles = StyleSheet.create({
     borderColor: "#e9c46a",
 
     zIndex: 2,
+  },
+  lock: {
+    top: 337,
+    left:140,
+    zIndex: 1,
+    width: 120, // Adjust width as needed
+    height: 120, // Adjust height as needed
   },
 });

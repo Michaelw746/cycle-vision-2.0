@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function PinScreen ({ visible, onClose, onConfirm, navigation})  {
+export default function PinScreenModal ({ visible, onClose, onConfirm })  {
   return (
     <Modal
       visible={visible}
@@ -66,5 +66,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
 
