@@ -15,7 +15,7 @@ const styles ={
         backgroundColor:'#FFFFFF',
         borderColor: '#A1C6E1',
         borderWidth: 9,
-        top:500,
+        top:400,
         right:-90,
 
     },
