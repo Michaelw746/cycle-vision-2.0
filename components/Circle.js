@@ -13,9 +13,9 @@ const styles ={
         height:200,
         borderRadius:400,
         backgroundColor:'#FFFFFF',
-        borderColor: '#A1C6E1',
+        borderColor: '#000000',
         borderWidth: 9,
-        top:600,
+        top:500,
         right:90,
         zindex:1,
         position:'absolute'

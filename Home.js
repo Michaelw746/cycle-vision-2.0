@@ -16,12 +16,13 @@ import {
   import { Circle } from "./components/Circle";
   import { setErrorMsg } from "react-native";
   import MapView from "react-native-maps";
-  import * as Location from "expo-location";
   import { Marker } from "react-native-maps";
   import {Picker} from "@react-native-picker/picker"
   import { PinScreenModal } from "./components/PinScreenModal";
   import { Map } from "./components/Map";
-  
+  import { SvgUri } from "react-native-svg";
+ 
+
   
   export default function App({navigation}){
   
@@ -56,7 +57,7 @@ import {
             {/* <Text style={styles.text1}>Boot #1</Text> */}
             <Picker
           selectedValue={selectedValue}
-          style={{ height: 50, width: 150, top:-77, right:-10, zIndex:4,position:"absolute"}}
+          style={{ height: 50, width: 150, top:-57, right:20, zIndex:4,position:"absolute"}}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Boot #1" value="java" />
@@ -72,16 +73,15 @@ import {
             <Image
               source={
                 isLocked
-                  ? require("./assets/lock1.png")
-                  : require("./assets/unlock1.png")
+                  ? require("./assets/unLocksolidgr2een.png")
+                  : require("./assets/Locksolidgreen.png")
               }
               style={styles.lock}
              
             />
           </TouchableOpacity>
-          
-  
-          </View>
+       
+           </View>
         
         <Circle/>
        
@@ -146,7 +146,7 @@ import {
       left: 480,
       top: 820,
       zIndex: 1,
-      height: 200,
+      height: 300,
       width: 344,
       transform: [{ scaleX: 3.2 }, { scaleY: 3.2 }],
       position: "absolute",
@@ -171,7 +171,7 @@ import {
     },
     dropdown: {
       top: 1,
-      right: -2,
+      right: -4,
       width: 75,
       color: "#2F88FF",
     },
@@ -189,17 +189,18 @@ import {
       height: 34,
       borderRadius: 34 / 2,
       backgroundColor: "#2F88FF",
-      borderColor: "#e9c46a",
+      borderColor: "#000000",
   
       zIndex: 2,
     },
     lock: {
-      top: 540,
-      left:130,
+      top: 410,
+      left:120,
       zIndex: 2,
-      width: 120, // Adjust width as needed
-      height: 120, // Adjust height as needed
-      position:'absolute'
+      width: 150, // Adjust width as needed
+      height: 150, // Adjust height as needed
+      position:'absolute',
+      color:"#00BF63",
     },
     modalText:{
       
