@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { Navigation } from '@react-navigation/native';
 
-
-const PinScreen = ({ navigation }) => {
+function PinScreen({ navigation }) {
   const [pin, setPin] = useState("");
 
   const handlePinSubmit = () => {
@@ -26,7 +24,7 @@ const PinScreen = ({ navigation }) => {
         value={pin}
         keyboardType="numeric"
       />
-      <Button title="Submit" onPress={handlePinSubmit}  />
+      <Button title="Submit" onPress={handlePinSubmit} />
     </View>
   );
 };

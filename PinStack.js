@@ -13,7 +13,7 @@ export default function PinStackExport() {
   return (
     <NavigationContainer>
     <Stack.Navigator>
-    <Stack.Screen name="Home" component={App}  />
+    <Stack.Screen name="Home" component={App}/>
       <Stack.Screen name="Pin" component={PinScreen}  />
     
     </Stack.Navigator>
