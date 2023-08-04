@@ -44,11 +44,11 @@ export function Map({navigation}){
         userLocation();
       }, []);
     return (
-      <View style={{ flex: 1 }}>
+     
         <MapView style={styles.map} region={mapRegion}w>
         <Marker coordinate={mapRegion} title="Marker" />
         </MapView>
-      </View>
+   
     );
   };
   const styles = StyleSheet.create({
@@ -56,6 +56,5 @@ export function Map({navigation}){
       width: "100%",
       height: "100%",
       margin: 0,
-      zIndex: 0,
     },
   })

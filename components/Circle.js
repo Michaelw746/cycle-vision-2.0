@@ -15,9 +15,10 @@ const styles ={
         backgroundColor:'#FFFFFF',
         borderColor: '#A1C6E1',
         borderWidth: 9,
-        top:500,
-        right:-90,
-
+        top:600,
+        right:90,
+        zindex:1,
+        position:'absolute'
     },
 }
 export {Circle}
