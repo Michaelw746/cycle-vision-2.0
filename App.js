@@ -24,45 +24,9 @@ import { Map } from "./components/Map";
 
 
 export default function App({navigation}){
-  let [mapRegion, setMapRegion] = useState({
-    latitude: 34.034411637144196,
-    longitude: -118.45671197410529,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
 
-  console.log("Initial lat", mapRegion.latitude);
-  console.log("Initial Long", mapRegion.longitude);
 
-  const [location, setLocation] = useState(null);
-  // Request user location info
-  const userLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-    }
-    {
-      /*Gets current position and then sets the latitude and longitude*/
-    }
-    let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: true,
-      timeInterval: 1,
-    });
 
-    setLocation(location);
-    setMapRegion({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-    console.log("This is lat", location.coords.latitude);
-    console.log("This is long", location.coords.longitude);
-  };
-
-  useEffect(() => {
-    userLocation();
-  }, []);
   const [selectedValue, setSelectedValue] = useState("Boot #1");
 
   const [isLocked, setIsLocked] = useState(true); // Added state for lock/unlock
@@ -100,12 +64,7 @@ export default function App({navigation}){
       </Picker>
 
           <Image source={require('./assets/logo.png')} style={styles.logo} />
-        
-
-        </View>
-      
-      <Circle/>
-      <TouchableOpacity onPress={() => {
+          <TouchableOpacity onPress={() => {
   toggleLock();
   toggleModal();
 }}
@@ -120,6 +79,12 @@ export default function App({navigation}){
            
           />
         </TouchableOpacity>
+        
+
+        </View>
+      
+      <Circle/>
+     
         <Modal visible={isModalVisible} animationType="slide">
         <View style={styles.modalContainer}>
           {/* Add your pin screen components here */}
@@ -172,8 +137,9 @@ const styles = StyleSheet.create({
     margin: 28,
     height: 65,
     width: 80,
-    top: 3,
-   right: 150,
+    top: -20,
+   right: 240,
+   position:'absolute',
     zIndex: 2,
   },
   boot: {
@@ -228,8 +194,8 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   lock: {
-    top: 337,
-    left:140,
+    top: 540,
+    left:130,
     zIndex: 2,
     width: 120, // Adjust width as needed
     height: 120, // Adjust height as needed
