@@ -21,6 +21,7 @@ import {
   import { PinScreenModal } from "./components/PinScreenModal";
   import { Map } from "./components/Map";
   import { Switch } from "react-native-elements";
+import { color } from "react-native-elements/dist/helpers";
  
 
   
@@ -74,11 +75,11 @@ import {
             (
 <Picker
           selectedValue={selectedValue}
-          style={{ height: 50, width: 150, top:-57, right:20, zIndex:4,position:"absolute"}}
+          style={styles.Picker}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
-          <Picker.Item label="Boot #1" value="java" />
-          <Picker.Item label="Boot #2" value="js" />
+          <Picker.Item label="Boot #1"  />
+          <Picker.Item label="Boot #2"  />
         </Picker>
             ):null }
             
@@ -216,15 +217,20 @@ import {
     },
     lock: {
       top: 450,
-      left: 80,
+      left: 50,
       zIndex: 2,
       width: 181, // Adjust width as needed
       height: 102, // Adjust height as needed
       position:'absolute',
       color:"#00BF63",
     },
-    modalText:{
-      
+    dropDownTextGreen:{
+      color:'#00BF63'
+    },
+    Picker:{
+      height: 50, width: 150, top:-57, right:100, zIndex:4,position:"absolute", 
+      backgroundColor: 'lightgray',
+      color: 'blue', // This sets the color of the selected item's text
     }
   });
   
