@@ -1,9 +1,8 @@
-import { View,  StyleSheet } from 'react-native';
+import {View} from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import React, { useState, useEffect, setSelectedValue, selectedValue, onValueChange, setErrorMsg} from "react";
-import * as Location from 'expo-location';
-import { Radius } from './Radius';
-export function Map({navigation}){
+
+ function Radius () {
     let [mapRegion, setMapRegion] = useState({
         latitude: 34.034411637144196,
         longitude: -118.45671197410529,
@@ -44,32 +43,35 @@ export function Map({navigation}){
         userLocation();
       }, []);
     return (
-     
-        <MapView style={styles.map} region={mapRegion}w>
-        <Marker coordinate={mapRegion} title="Marker"
-         pinColor="green"
-          styles={{pinColor:"green",}}/>
-       <Circle
+        <Circle
        
-  center={mapRegion}
-  styles={styles.rad }
-  radius={1000}
-  strokeColor='#00BF63'
-  fillColor='#7ED957'
-  op
-  
-/>
-<Radius />
-        </MapView>
-   
-    );
-  };
-  const styles = StyleSheet.create({
-    map: {
-      width: "100%",
-      height: "100%",
-      margin: 0,
+        center={mapRegion}
+        styles={styles.circle }
+        radius={1000}
+        strokeColor='#00BF63'
+        fillColor='#7ED957'
+        
+        
+      />
+    )
+};
+
+const styles ={
+    circle:{
+        width:215,
+        height:215,
+        borderRadius:400,
+        backgroundColor:'#FFFFFF',
+        borderColor: '#7ED957',
+        borderWidth: 9,
+        top:500,
+        right:100,
+        zindex:1,
+        position:'absolute'
+
     },
-   
-    
-  })
+    rad:{
+        opacity:0.7,
+      }
+}
+export {Radius}

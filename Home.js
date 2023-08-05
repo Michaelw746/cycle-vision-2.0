@@ -20,7 +20,7 @@ import {
   import {Picker} from "@react-native-picker/picker"
   import { PinScreenModal } from "./components/PinScreenModal";
   import { Map } from "./components/Map";
-  import { SvgUri } from "react-native-svg";
+  import { Switch } from "react-native-elements";
  
 
   
@@ -40,12 +40,15 @@ import {
     const toggleModal = () => {
       setModalVisible(!isModalVisible);
     };
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   
     // render(){
     //   const { mapRegion, radius, showPinScreen, selectedDropdownValue } = this.state;
   
     return (
       <View>
+         {/* <DropdownButton/> */}
        <Map/>
       
         <View style={styles.button}>
@@ -73,13 +76,15 @@ import {
             <Image
               source={
                 isLocked
-                  ? require("./assets/unLocksolidgr2een.png")
-                  : require("./assets/Locksolidgreen.png")
+                  ? require("./assets/Group68.png")
+                  : require("./assets/Group69.png")
               }
               style={styles.lock}
              
             />
           </TouchableOpacity>
+
+         
        
            </View>
         
@@ -194,11 +199,11 @@ import {
       zIndex: 2,
     },
     lock: {
-      top: 410,
-      left:120,
+      top: 450,
+      left: 80,
       zIndex: 2,
-      width: 150, // Adjust width as needed
-      height: 150, // Adjust height as needed
+      width: 181, // Adjust width as needed
+      height: 102, // Adjust height as needed
       position:'absolute',
       color:"#00BF63",
     },

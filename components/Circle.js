@@ -9,14 +9,14 @@ import {View} from 'react-native';
 
 const styles ={
     circle:{
-        width:200,
-        height:200,
+        width:215,
+        height:215,
         borderRadius:400,
         backgroundColor:'#FFFFFF',
-        borderColor: '#000000',
+        borderColor: '#FFFFFF',
         borderWidth: 9,
         top:500,
-        right:90,
+        right:100,
         zindex:1,
         position:'absolute'
     },
