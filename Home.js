@@ -36,6 +36,7 @@ import {
       setIsLocked(!isLocked);
     };
     const [isModalVisible, setModalVisible] = useState(false); 
+    const[isVisible, setisVisible] = useState(false);
   
     const toggleModal = () => {
       setModalVisible(!isModalVisible);
@@ -58,7 +59,20 @@ import {
              
             </View>
             {/* <Text style={styles.text1}>Boot #1</Text> */}
-            <Picker
+            <TouchableOpacity onPress={() => {if(setisVisible === false)
+            { setisVisible(!isVisible)
+            
+            }
+          else{
+            setisVisible(!isVisible)
+          }}
+            }>
+            <Image source={require('./assets/Dropdown.png')} style = {{right:-300}}/>
+            </TouchableOpacity>
+            
+            {isVisible ?
+            (
+<Picker
           selectedValue={selectedValue}
           style={{ height: 50, width: 150, top:-57, right:20, zIndex:4,position:"absolute"}}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
@@ -66,6 +80,8 @@ import {
           <Picker.Item label="Boot #1" value="java" />
           <Picker.Item label="Boot #2" value="js" />
         </Picker>
+            ):null }
+            
   
             <Image source={require('./assets/logo.png')} style={styles.logo} />
             <TouchableOpacity onPress={() => {
@@ -140,9 +156,9 @@ import {
     },
     logo: {
       margin: 28,
-      height: 65,
-      width: 80,
-      top: -20,
+      height: 26,
+      width: 70,
+      top: 0,
      right: 240,
      position:'absolute',
       zIndex: 2,
