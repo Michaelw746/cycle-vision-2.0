@@ -78,8 +78,8 @@ import { color } from "react-native-elements/dist/helpers";
           style={styles.Picker}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
-          <Picker.Item label="Boot #1"  />
-          <Picker.Item label="Boot #2"  />
+          <Picker.Item  color='pink'   label="Boot #1"  />
+          <Picker.Item  backgroundColor=  "#FFFFFF" label="Boot #2"  />
         </Picker>
             ):null }
             
@@ -105,7 +105,6 @@ import { color } from "react-native-elements/dist/helpers";
        
            </View>
         
-        <Circle/>
        
           {/* <Modal visible={isModalVisible} animationType="slide">
           <View style={styles.modalContainer}>
@@ -198,9 +197,11 @@ import { color } from "react-native-elements/dist/helpers";
       color: "#2F88FF",
     },
     dropdown2: {
-      top: 34,
+      top: 100,
       right: -24,
       color: "#FFFFFF",
+      backgroundColor: 'FFFFFF',
+
     },
     dropdownText: {
       color: "#2F88FF",
@@ -216,21 +217,24 @@ import { color } from "react-native-elements/dist/helpers";
       zIndex: 2,
     },
     lock: {
-      top: 450,
+      top: 400,
       left: 50,
       zIndex: 2,
-      width: 181, // Adjust width as needed
-      height: 102, // Adjust height as needed
+      width: 215, // Adjust width as needed
+      height: 215, // Adjust height as needed
       position:'absolute',
       color:"#00BF63",
     },
     dropDownTextGreen:{
-      color:'#00BF63'
+      color:'#00BF63',
+      backgroundColor: 'FFFFFF',
+
     },
     Picker:{
-      height: 50, width: 150, top:-57, right:100, zIndex:4,position:"absolute", 
-      backgroundColor: 'lightgray',
-      color: 'blue', // This sets the color of the selected item's text
+      height: 50, width: 150, top:-57, right:100, zIndex:4,position:"absolute", color:"#FFFFFF",  
+      //  backgroundColor:"#FFFFFF",
+      // backgroundColor: 'lightgray',
+      // // color: 'blue', // This sets the color of the selected item's text
     }
   });
   

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect, setSelectedValue, selectedValue, onValueChange, setErrorMsg} from "react";
 import {View} from 'react-native';
 
  function Circle () {
+    const[isVisible, setisVisible] = useState(false);
     return (
-    <View style = {styles.circle}/>
+    <View style = {styles.circle}  onPress={() => {if(setisVisible === false)
+        { setisVisible(!isVisible)
+        
+        }
+      else{
+        setisVisible(!isVisible)
+      }}
+        }/>
     )
 };
 
