@@ -30,7 +30,7 @@ import { color } from "react-native-elements/dist/helpers";
   
   
     const [selectedValue, setSelectedValue] = useState("Boot #1");
-  
+ 
     const [isLocked, setIsLocked] = useState(true); // Added state for lock/unlock
   
     const toggleLock = () => {
@@ -49,6 +49,7 @@ import { color } from "react-native-elements/dist/helpers";
     //   const { mapRegion, radius, showPinScreen, selectedDropdownValue } = this.state;
   
     return (
+      
       <View>
          {/* <DropdownButton/> */}
        <Map/>
@@ -68,7 +69,9 @@ import { color } from "react-native-elements/dist/helpers";
             setisVisible(!isVisible)
           }}
             }>
-            <Image source={require('./assets/Dropdown.png')} style = {{right:-300}}/>
+              {/* {selectedValue === } */}
+               <Text style= {styles.Boottext}>Boot #1</Text>
+            <Image source={require('./assets/Dropdown.png')} style = {{right:-300, top:-15}}/>
             </TouchableOpacity>
             
             {isVisible ?
@@ -77,19 +80,25 @@ import { color } from "react-native-elements/dist/helpers";
           selectedValue={selectedValue}
           style={styles.Picker}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          
         >
-          <Picker.Item  color='pink'   label="Boot #1"  />
-          <Picker.Item  backgroundColor=  "#FFFFFF" label="Boot #2"  />
+          
+          <Picker.Item  color='pink'   label="Boot #1" value={'Boot1'}  />
+          
+          
+          <Picker.Item  color="pink" label="Boot #2" value ={'Boot2'} />
+           
         </Picker>
-            ):null }
-            
-  
+        
+            ):null }      
+ 
             <Image source={require('./assets/logo.png')} style={styles.logo} />
             <TouchableOpacity onPress={() => {
     toggleLock();
-   navigation.navigate('Pin')
+  //  navigation.navigate('Pin')
   }}
    >
+    
             <Image
               source={
                 isLocked
@@ -101,7 +110,7 @@ import { color } from "react-native-elements/dist/helpers";
             />
           </TouchableOpacity>
 
-         
+        
        
            </View>
         
@@ -218,7 +227,7 @@ import { color } from "react-native-elements/dist/helpers";
     },
     lock: {
       top: 400,
-      left: 50,
+      left: -15,
       zIndex: 2,
       width: 215, // Adjust width as needed
       height: 215, // Adjust height as needed
@@ -235,6 +244,12 @@ import { color } from "react-native-elements/dist/helpers";
       //  backgroundColor:"#FFFFFF",
       // backgroundColor: 'lightgray',
       // // color: 'blue', // This sets the color of the selected item's text
+    },
+    Boottext:{
+      right:-150,
+      top: 20,
+      fontSize:30,
+      color:'pink'
     }
   });
   
