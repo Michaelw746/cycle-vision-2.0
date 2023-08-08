@@ -22,11 +22,11 @@ import {
   import { Map } from "./components/Map";
   import { Switch } from "react-native-elements";
 import { color } from "react-native-elements/dist/helpers";
- 
+ import axios from "axios";
 
   
   export default function App({navigation}){
-  
+  const[call,setCall] = useState('')
   
   
     const [selectedValue, setSelectedValue] = useState("Boot #1");
@@ -48,6 +48,12 @@ import { color } from "react-native-elements/dist/helpers";
     // render(){
     //   const { mapRegion, radius, showPinScreen, selectedDropdownValue } = this.state;
   
+    const clawClose = () => {
+      axios.get('http://172.20.10.10/close')
+    }
+    const clawOpen = () => {
+      axios.get('http://172.20.10.10/open')
+    }
     return (
       
       <View>
@@ -70,7 +76,7 @@ import { color } from "react-native-elements/dist/helpers";
           }}
             }>
               {/* {selectedValue === } */}
-               <Text style= {styles.Boottext}>Boot #1</Text>
+               <Text style= {styles.Boottext}>{selectedValue}</Text>
             <Image source={require('./assets/Dropdown.png')} style = {{right:-300, top:-15}}/>
             </TouchableOpacity>
             
@@ -83,10 +89,10 @@ import { color } from "react-native-elements/dist/helpers";
           
         >
           
-          <Picker.Item  color='pink'   label="Boot #1" value={'Boot1'}  />
+          <Picker.Item  color='pink'  label="Boot #1" value={'Boot #1'}  />
           
           
-          <Picker.Item  color="pink" label="Boot #2" value ={'Boot2'} />
+          <Picker.Item  color="pink" label="Boot #2" value ={'Boot #2'} />
            
         </Picker>
         
@@ -95,6 +101,11 @@ import { color } from "react-native-elements/dist/helpers";
             <Image source={require('./assets/logo.png')} style={styles.logo} />
             <TouchableOpacity onPress={() => {
     toggleLock();
+    if(isLocked === true){
+    clawClose();
+  }else{
+    clawOpen();
+  }
   //  navigation.navigate('Pin')
   }}
    >
@@ -240,8 +251,8 @@ import { color } from "react-native-elements/dist/helpers";
 
     },
     Picker:{
-      height: 50, width: 150, top:-57, right:100, zIndex:4,position:"absolute", color:"#FFFFFF",  
-      //  backgroundColor:"#FFFFFF",
+      height: 50, width: 150, top:-100, right:100, zIndex:4,position:"absolute", color:"#FFFFFF",  
+        //backgroundColor:"#FFFFFF",
       // backgroundColor: 'lightgray',
       // // color: 'blue', // This sets the color of the selected item's text
     },
