@@ -49,12 +49,12 @@ export function Map({navigation}){
         <Marker coordinate={mapRegion} title="Marker"
          pinColor="green"
           styles={{pinColor:"green",}}/>
+          <Circle coordinate ={mapRegion} fillColor='#00BF63'  />
        <Circle
-       
   center={mapRegion}
-  styles={styles.rad }
   radius={1000}
   strokeColor='#00BF63'
+  strokeWidth={2}
   fillColor='#7ED957'
   op
   

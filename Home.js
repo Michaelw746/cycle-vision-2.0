@@ -1,72 +1,58 @@
 import {
-    Button,
     StyleSheet,
     Text,
     View,
-    ReactNativeZoomableView,
-    onPress,
     Image,
-    Modal,
-    TextInput
+    Button
   } from "react-native";
   // this file is using for creating a tracker and to use expo map api for the map
   import React, { useState, useEffect, setSelectedValue, selectedValue, onValueChange } from "react";
   import { TouchableOpacity } from "react-native";
-  import ModalDropdown from "react-native-modal-dropdown";
-  import { Circle } from "./components/Circle";
-  import { setErrorMsg } from "react-native";
-  import MapView from "react-native-maps";
-  import { Marker } from "react-native-maps";
   import {Picker} from "@react-native-picker/picker"
-  import { PinScreenModal } from "./components/PinScreenModal";
+  //imports the map components
   import { Map } from "./components/Map";
-  import { Switch } from "react-native-elements";
-import { color } from "react-native-elements/dist/helpers";
+ 
  import axios from "axios";
 
   
   export default function App({navigation}){
-  const[call,setCall] = useState('')
-  
-  
+    //Gets rid of the header 
+    React.useLayoutEffect(() => {
+      navigation.setOptions({headerShown: false});
+    }, [navigation]);
+//saves the value selected in the picker 
     const [selectedValue, setSelectedValue] = useState("Boot #1");
- 
+ //confirms whether or not the lock is locked with a boolean
     const [isLocked, setIsLocked] = useState(true); // Added state for lock/unlock
   
     const toggleLock = () => {
       setIsLocked(!isLocked);
     };
-    const [isModalVisible, setModalVisible] = useState(false); 
     const[isVisible, setisVisible] = useState(false);
-  
-    const toggleModal = () => {
-      setModalVisible(!isModalVisible);
-    };
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  
-    // render(){
-    //   const { mapRegion, radius, showPinScreen, selectedDropdownValue } = this.state;
-  
+
+//get data using axios to control whether claw opens or closes
     const clawClose = () => {
       axios.get('http://172.20.10.10/close')
     }
+
     const clawOpen = () => {
       axios.get('http://172.20.10.10/open')
     }
+
+    const buzzSound = () => {
+      axios.get('http://172.20.10.10/buzz')
+    }
+
     return (
       
       <View>
-         {/* <DropdownButton/> */}
        <Map/>
       
         <View style={styles.button}>
-            {/* <Card  > */}
             <View>
               {/* Your other components inside the button */}
              
             </View>
-            {/* <Text style={styles.text1}>Boot #1</Text> */}
             <TouchableOpacity onPress={() => {if(setisVisible === false)
             { setisVisible(!isVisible)
             
@@ -75,7 +61,6 @@ import { color } from "react-native-elements/dist/helpers";
             setisVisible(!isVisible)
           }}
             }>
-              {/* {selectedValue === } */}
                <Text style= {styles.Boottext}>{selectedValue}</Text>
             <Image source={require('./assets/Dropdown.png')} style = {{right:-300, top:-15}}/>
             </TouchableOpacity>
@@ -85,13 +70,10 @@ import { color } from "react-native-elements/dist/helpers";
 <Picker
           selectedValue={selectedValue}
           style={styles.Picker}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-          
-        >
-          
+          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)} 
+        >     
           <Picker.Item  color='pink'  label="Boot #1" value={'Boot #1'}  />
-          
-          
+           
           <Picker.Item  color="pink" label="Boot #2" value ={'Boot #2'} />
            
         </Picker>
@@ -100,16 +82,15 @@ import { color } from "react-native-elements/dist/helpers";
  
             <Image source={require('./assets/logo.png')} style={styles.logo} />
             <TouchableOpacity onPress={() => {
+    //when lock is called it gets the functions that open the law or close it based on isLocked value
     toggleLock();
     if(isLocked === true){
     clawClose();
   }else{
     clawOpen();
   }
-  //  navigation.navigate('Pin')
   }}
    >
-    
             <Image
               source={
                 isLocked
@@ -121,24 +102,12 @@ import { color } from "react-native-elements/dist/helpers";
             />
           </TouchableOpacity>
 
-        
-       
+
+          {/* <TouchableOpacity >
+            <Text>Hey Press me to hear buzz</Text>
+          </TouchableOpacity> */}
            </View>
-        
-       
-          {/* <Modal visible={isModalVisible} animationType="slide">
-          <View style={styles.modalContainer}>
-        //     {/* Add your pin screen components here */}
-        {/* //     <Text style={styles.modalText}>Enter Pin:</Text>
-        //     <TextInput */}
-        {/* //       style={styles.input}
-        //       placeholder="Enter your pin"
-        //       // Add onChangeText and value props to manage input state
-        //     />
-        //     <Button title="Submit" onPress={toggleModal} />
-        //   </View> */}
-        {/* // </Modal>  */}
-        
+      
       </View>
     )
   }
@@ -237,7 +206,7 @@ import { color } from "react-native-elements/dist/helpers";
       zIndex: 2,
     },
     lock: {
-      top: 400,
+      top: 500,
       left: -15,
       zIndex: 2,
       width: 215, // Adjust width as needed
@@ -252,9 +221,6 @@ import { color } from "react-native-elements/dist/helpers";
     },
     Picker:{
       height: 50, width: 150, top:-100, right:100, zIndex:4,position:"absolute", color:"#FFFFFF",  
-        //backgroundColor:"#FFFFFF",
-      // backgroundColor: 'lightgray',
-      // // color: 'blue', // This sets the color of the selected item's text
     },
     Boottext:{
       right:-150,
